@@ -36,13 +36,10 @@ public final class Artemis {
       // Detect SIGTERM
       Runtime.getRuntime()
           .addShutdownHook(
-              new Thread() {
-                @Override
-                public void run() {
-                  System.out.println("Artemis is shutting down");
-                  ServiceController.stopAll(cliArgs);
-                }
-              });
+                  new Thread(() -> {
+                    System.out.println("Artemis is shutting down");
+                    ServiceController.stopAll(cliArgs);
+                  }));
       // Initialize services
       ServiceController.initAll(
           cliArgs,
